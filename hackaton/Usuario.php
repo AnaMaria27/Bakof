@@ -14,19 +14,25 @@ class Usuario{
 	}
 	public function cadastrar($nome, $senha, $cpf, $veiculo){
 		global $pdo;
-		$sql = $pdo->prepare("SELECT id FROM trasnportadores WHERE CPF = :e);
-        $sql->bindvalue(":e",$email);
+		$sql = $pdo->prepare("SELECT id FROM trasnportadores WHERE CPF = :e");
+        $sql->bindvalue(":e",$cpf);
 		$sql->execute();
         
+        $b = true;
+        $id = geraId();
+        while(b){
+            $sql = $pdo->prepare("SELECT nome FROM usuario WHERE id = :i");
+            $sql->bindvalue(":i",$id);
+            $execute();
+        }
+
 		if($sql->rowCount() > 0){
 			return false;
 		}else{
+            $b = true;
             
-            while(b){
 
-            }
-
-			$sql = $pdo->prepare("INSERT INTO trasnportadores (nome, senha, cpf, veiculo) VALUE(:n, :s, :c, :v)");
+			$sql = $pdo->prepare("INSERT INTO usuario (nome, senha, cpf, veiculo) VALUE(:n, :s, :c, :v)");
 			$sql->bindvalue(":n",$nome);
 			$sql->bindvalue(":s",password_hash($senha, PASSWORD_DEFAULT));
 			$sql->bindvalue(":c",$cpf);
@@ -60,14 +66,5 @@ class Usuario{
 		
 	}
     
-    private fuction geraId(){
-        for($i = 0; $i < 12; $i++){
-
-
-
-            
-        }
-    }
-	
 }
 ?>
