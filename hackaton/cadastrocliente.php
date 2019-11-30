@@ -49,6 +49,6 @@
 					senhas diferentes!
 				</div>
 			<?php
-        }
+        }//a
     }
 ?>
