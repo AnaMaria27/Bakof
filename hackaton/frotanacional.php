@@ -4,8 +4,8 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>Cadastrar Conteúdo</title>
 <link rel="stylesheet" href="node_modules/bootstrap/compiler/bootstrap.css" >
- <script src = "https://cloud.tinymce.com/stable/tinymce.min.js?apiKey=hpers0v9vh9tmekmq9qowbaaomn6xfxgm3raovemxlzty9ir"></script>
-  <script>tinymce.init({ selector:'textarea' });</script>
+ <script src = "https://cloud.tinymce.com/stable/tinymce.min.js?apiKey=AIzaSyADLsL46CQaEu2smB3EMpEV1eEbInd0ASs&callback"></script>
+
 </head>
 
 <body>
@@ -23,30 +23,36 @@
          background-color: yellow;
         } 
   </style>
+   <script src='https://maps.googleapis.com/maps/api/js' type='text/javascript'></script>
+  <script type='text/javascript'>
   <?php
-  $dbc = mysqli_connect('localhost', 'root', '', 'tcc') or die ('Erro ao conectar ao servidor MySQL');
-    $quer="SELECT logitude, latitude FROM entregas ";
-       
-  echo "<script src='https://maps.googleapis.com/maps/api/js' type='text/javascript'></script>
-  <script type='text/javascript'>";
 
-  while ($row = mysqli_fetch_array($result)) { 
-   echo "var latitude= ". $row['latitude'];
-      echo "var longetude= ". $row['longetude']; 
-      echo"var verfrete = new google.maps.LatLng(latitude, longetude)";
+  $dbc = mysqli_connect('localhost', 'root', '', 'bakof') or die ('Erro ao conectar ao servidor MySQL');
+    $quer="SELECT longitude, latitude FROM entregas ";
+    $quer= mysqli_query($dbc, $quer);
+    echo "var pontos = [";
+    while ($row = mysqli_fetch_array($quer)) { 
+   
+      echo "
+     new google.maps.LatLng(".$row['longitude'] .",". $row['latitude'] ."),";
+          
+         
+      };
+      echo "]";
+  ?>
+ 
 
-        
-       
-    }; echo "
+  
+  
 function initialize() {
 var mapOptions = {
-center: verfrete,
+center: pontos[0],
 zoom: 18,
 mapTypeId: google.maps.MapTypeId.SATELLITE
 };
 var map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
  var marcador=new google.maps.Marker({
-   position: verfrete,
+   position: pontos[0],
    map:map,
    title:'Eu estou aqui'
  });
@@ -58,8 +64,7 @@ google.maps.event.addDomListener(window, 'load', initialize);
 
 <body>
   <h1> Frete Nacional</h1>
-  <div id='map-canvas'></div>";
-  ?>
+  <div id='map-canvas'></div>
 </body>
 
 </html>
@@ -67,8 +72,6 @@ google.maps.event.addDomListener(window, 'load', initialize);
     
 
 
-<script src="node_modules/jquery/dist/jquery.js" crossorigin="anonymous"></script>
-    <script src="node_modules/popper.js/dist/popper.js" crossorigin="anonymous"></script>
-    <script src="node_modules/bootstrap/dist/js/bootstrap.js" crossorigin="anonymous"></script>
+
 </body>
 </html>
