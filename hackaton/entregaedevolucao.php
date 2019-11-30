@@ -68,24 +68,21 @@ include_once("conexao.php");      $query="SELECT * FROM conteudo WHERE idcont ='
     </div></div>
 
    
-       <input id="radio_1" name="categoria" type="radio" value="1" <?php if ( $row['categoria'] == 1 ) echo 'checked'; ?>> Entrega concluida<br>
+       <input id="radio_1" name="categoria" type="radio" value="1"  > Entrega concluida<br>
    
     
-           <input id="radio_2" name="categoria" type="radio" value="2" <?php if ( $row['categoria'] == 2 ) echo 'checked'; ?>> Produto chegou quebrado<br>
+           <input id="radio_2" name="categoria" type="radio" value="2" > Produto chegou quebrado<br>
       
     /div>
     <div class="col-md-6"> 
-      <input id="radio_3" name="categoria" type="radio" value="3" <?php if ( $row['categoria'] == 3 ) echo 'checked'; ?>> Não foi solicidado<br>
+      <input id="radio_3" name="categoria" type="radio" value="3"  > Não foi solicidado<br>
      
-       <input id="radio_4" name="categoria" type="radio" value="4" <?php if ( $row['categoria'] == 4 ) echo 'checked'; ?>> Produto faltou<br> 
-     </div></div>
-        <div class="row mb-3">
-    <div class="col-md-3"></div>
-    <div class="col-md-6"> 
-       <input id="radio_4" name="categoria" type="radio" value="5" <?php if ( $row['categoria'] == 5 ) echo 'checked'; ?>> Endereço errado<br> 
+       <input id="radio_4" name="categoria" type="radio" value="4" > Produto faltou<br> 
+     
+       <input id="radio_4" name="categoria" type="radio" value="5"> Endereço errado<br> 
      </div></div>
     <label for  = "titulo">Produtos que ocorram o problema:</label><br />
-    <input type="checkbox" id= "titulo" name= "titulo" value="<?php echo $row['nome']; ?>"> <br />
+    <input type="checkbox" id= "nome" name= "nome" value="<?php echo $row['nome']; ?>"> <br />
 
     <label for="foto">Foto da mercadoria:</label> <br>
     <input type="file" name="foto"/> <br>
