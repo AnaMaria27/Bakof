@@ -54,22 +54,30 @@ class Usuario{
 		
 	}
 	public function logar($cpf, $senha){
-		global $pdo;
-		
+        global $pdo;
         $sql = $pdo->prepare("SELECT senha FROM usuario WHERE cpf = :e");
-        $sql->bindvalue(":e", $cpf);
+        $sql->bindvalue(":e",$cpf);
         $sql->execute();
-
+        
         $dado = $sql->fetch();
         
-        if(password_verify($senha, $dado['senha'])){
-            return true;
-        }else{
-            return false;
-        }
+        $senhabd = $dado['senha'];
         
+        if(password_verify($senha, $senhabd)){
+            $_SESSION['id'] = $dado['id'];
+            return true;
+        }
+
 	}
     
+    public function logarcliente($usuario, $senha){
+        global $pdo;
+
+        $sql = $pdo->prepare("SELECT senha FROM usuario WHERE usuario = :u");
+        $sql->bindvalue(":u", $usuario);
+        $sql->execute();
+    }
+
     public function cadastroproduto($nome, $descricao, $qnt){
         global $pdo;
         
