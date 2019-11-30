@@ -12,7 +12,7 @@ class Usuario{
 			$msgErro = $e->getMessage();
 		}
 	}
-	public function cadastrar($nome, $senha, $cpf, $veiculo){
+	public function cadastrar($nome, $cpf, $senha){
 		global $pdo;
 		$sql = $pdo->prepare("SELECT id FROM usuario WHERE CPF = :e");
         $sql->bindvalue(":e",$cpf);
@@ -21,13 +21,12 @@ class Usuario{
 		if($sql->rowCount() > 0){
 			return false;
 		}else{
-            $b = true;
             
-
-			$sql = $pdo->prepare("INSERT INTO usuario (nome, cpf, senha) VALUE(:n, :c, :s)");
+			$sql = $pdo->prepare("INSERT INTO usuario (nome, cpf, senha, codigo) VALUE(:n, :c, :s, :d)");
 			$sql->bindvalue(":n",$nome);
 			$sql->bindvalue(":s",password_hash($senha, PASSWORD_DEFAULT));
-			$sql->bindvalue(":c",$cpf);
+            $sql->bindvalue(":c",$cpf);
+            $sql->bindvalue(":d",geraCod());
 			$sql->execute();
 			
 			return true;
@@ -57,5 +56,16 @@ class Usuario{
 		
 	}
     
+    /*public function geraCod(){
+        $string = "0123456789abcdefghijklmnopqrstuvxwyz";
+        $st = "";
+        for($i = 0; $i < 6; $i++){
+            $x = rand(0 , 35);
+            $c = substr($string , $x, $x);
+            $st .= $c;
+        }
+        return $st;
+    }*/
+
 }
 ?>
