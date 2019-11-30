@@ -33,20 +33,22 @@ class Usuario{
 		}
 		
     }
-    public function cadastrarCliente($nome, $usuario, $senha){
+    public function cadastrarCliente($nome, $usuario, $senha, $cpf){
 		global $pdo;
-		$sql = $pdo->prepare("SELECT id FROM usuario WHERE usuario = :e");
+		$sql = $pdo->prepare("SELECT id FROM usuario WHERE usuario = :e OR cpf = :t");
         $sql->bindvalue(":e",$usuario);
+        $sql->bindvalue(":t",$cpf);
 		$sql->execute();
         
 		if($sql->rowCount() > 0){
 			return false;
 		}else{
             
-			$sql = $pdo->prepare("INSERT INTO usuario (nome, usu, senha) VALUE(:n, :u, :s)");
+			$sql = $pdo->prepare("INSERT INTO usuario (nome, usu, senha, cpf) VALUE(:n, :u, :s, :d)");
 			$sql->bindvalue(":n",$nome);
 			$sql->bindvalue(":s",password_hash($senha, PASSWORD_DEFAULT));
             $sql->bindvalue(":u",$usuario);
+            $sql->bindvalue(":d",$cpf);
 			$sql->execute();
 			
 			return true;
@@ -69,14 +71,6 @@ class Usuario{
         }
 
 	}
-    
-    public function logarcliente($usuario, $senha){
-        global $pdo;
-
-        $sql = $pdo->prepare("SELECT senha FROM usuario WHERE usuario = :u");
-        $sql->bindvalue(":u", $usuario);
-        $sql->execute();
-    }
 
     public function cadastroproduto($nome, $descricao, $qnt){
         global $pdo;
