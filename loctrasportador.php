@@ -18,7 +18,6 @@ function initialize() {
 var mapOptions = {
 center: casaAna,
 zoom: 18,
-
 mapTypeId: google.maps.MapTypeId.SATELLITE
 };
 var map = new google.maps.Map(document.getElementById("map-canvas"), mapOptions);
@@ -26,28 +25,6 @@ var map = new google.maps.Map(document.getElementById("map-canvas"), mapOptions)
 	 position: casaAna,
 	 map:map,
 	 title:"Estou aqui"
-	
- });
-}
-google.maps.event.addDomListener(window, 'load', initialize);
-
-</script>
-<script src="https://maps.googleapis.com/maps/api/js" type="text/javascript"></script>
-	<script type="text/javascript">
-var casa = new google.maps.LatLng(-27.479260, -53.198631);
-function initialize() {
-var mapOptions = {
-center: casa,
-zoom: 18,
-
-mapTypeId: google.maps.MapTypeId.SATELLITE
-};
-var map = new google.maps.Map(document.getElementById("map-canvas"), mapOptions);
- var marcador=new google.maps.Marker({
-	 position: casa,
-	 map:map,
-	 title:"Estou aqui"
-	
  });
 }
 google.maps.event.addDomListener(window, 'load', initialize);
@@ -61,5 +38,3 @@ google.maps.event.addDomListener(window, 'load', initialize);
 </body>
 
 </html>
-
-
