@@ -81,8 +81,5 @@ class Usuario{
         $sql->bindvalue(":q", $qnt);
         $sql->execute();
     }
-//a
-
-
 }
 ?>

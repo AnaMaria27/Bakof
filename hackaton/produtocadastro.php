@@ -1,6 +1,7 @@
 <?php
     require_once 'Usuario.php';
-	$u = new Usuario;
+    $u = new Usuario;
+    
 ?>
 <html>
 <body>
