@@ -53,28 +53,32 @@ class Usuario{
 		}
 		
 	}
-	public function logar($usuario, $senha){
+	public function logar($cpf, $senha){
 		global $pdo;
 		
-		$sql = $pdo->prepare("SELECT * FROM usuarios WHERE cpf = :u");
-		$sql->bindvalue(":u",$usuario);
-		$sql->execute();
-		
-		$dado = $sql->fetch();
-		echo($dado['cpf']);
-		if($dado['cpf'] == $usuario){
-			if(password_verify($senha, $dado['senha'])){
-				session_start();
-				$_SESSION['id'] = $dado['id'];
-			    return true;
-			}else{
-				return false;
-			}
-		}else{
-			return false;
-		}
-		
+        $sql = $pdo->prepare("SELECT senha FROM usuario WHERE cpf = :e");
+        $sql->bindvalue(":e", $cpf);
+        $sql->execute();
+
+        $dado = $sql->fetch();
+        
+        if(password_verify($senha, $dado['senha'])){
+            return true;
+        }else{
+            return false;
+        }
+        
 	}
     
+    public function cadastroproduto($nome, $descricao, $qnt){
+        global $pdo;
+        
+        $sql = $pdo->prepare("INSERT INTO produtos (nome, descricao, qnt) VALUE(:n, :d, :q)");
+        $sql->bindvalue(":n", $nome);
+        $sql->bindvalue(":d", $descricao);
+        $sql->bindvalue(":q", $qnt);
+        $sql->execute();
+    }
+
 }
 ?>
