@@ -14,7 +14,7 @@ class Usuario{
 	}
 	public function cadastrar($nome, $cpf, $senha, $telefone){
 		global $pdo;
-		$sql = $pdo->prepare("SELECT id FROM usuario WHERE CPF = :e");
+		$sql = $pdo->prepare("SELECT id FROM usuario WHERE cpf = :e");
         $sql->bindvalue(":e",$cpf);
 		$sql->execute();
         
@@ -53,20 +53,20 @@ class Usuario{
 		}
 		
 	}
-	public function logar($cpf, $senha){
+	public function logar($usuario, $senha){
 		global $pdo;
 		
-		$sql = $pdo->prepare("SELECT * FROM usuario WHERE cpf = :c");
-		$sql->bindvalue(":c",$cpf);
+		$sql = $pdo->prepare("SELECT * FROM usuarios WHERE cpf = :u");
+		$sql->bindvalue(":u",$usuario);
 		$sql->execute();
 		
 		$dado = $sql->fetch();
-		
-		if($dado['cpf'] == $cpf){
+		echo($dado['cpf']);
+		if($dado['cpf'] == $usuario){
 			if(password_verify($senha, $dado['senha'])){
 				session_start();
 				$_SESSION['id'] = $dado['id'];
-			return true;
+			    return true;
 			}else{
 				return false;
 			}
